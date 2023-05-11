@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AppliVentesStocks:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/AppliVentesStocks_jar</output-path>
+    <root id="archive" name="AppliVentesStocks.jar">
+      <element id="module-output" name="AppliVentesStocks" />
+    </root>
+  </artifact>
+</component>
