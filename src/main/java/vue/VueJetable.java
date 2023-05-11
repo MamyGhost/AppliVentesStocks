@@ -29,7 +29,7 @@ import controleur.*;
 import metier.*;
 
 public class VueJetable {
-    
+
     static Session laSession;
     static JFrame frame;
 
