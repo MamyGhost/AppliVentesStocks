@@ -56,40 +56,26 @@ public class VueJetable {
         frame.setContentPane(accueilPanel);
         frame.setLayout(null);
         //initialiserPanel(); 
+        
+        JLabel title = new JLabel();
+        JPasswordField mdpField = new JPasswordField();
+        JLabel pseudoLabel = new JLabel();
+        JLabel mdpLabel = new JLabel();
+        JTextField pseudoField = new JTextField();
+        JButton login = new JButton();
 
-        JLabel title = new JLabel("French Chic");
-        title.setLocation(150, 50);
-        title.setSize(1000, 100);
-        Font f = new Font("", Font.PLAIN, 70);
-        title.setFont(f);
-        title.setForeground(Color.MAGENTA);
 
-        JLabel pseudoLabel = null;
-        JLabel mdpLabel = null;
+        title.setFont(new java.awt.Font("Brush Script MT", 0, 48)); // NOI18N
+        title.setForeground(new java.awt.Color(246, 43, 233));
+        title.setText("French Chic");
 
-        pseudoLabel = new JLabel("Pseudo");
-        pseudoLabel.setSize(120, 20);
-        pseudoLabel.setLocation(150, 200);
-        mdpLabel = new JLabel("Mot de passe");
-        mdpLabel.setSize(120, 20);
-        mdpLabel.setLocation(150, 250);
+        pseudoLabel.setText("Pseudo");
 
-        int longueur = 200;
-        int largeur = 30;
+        mdpLabel.setText("Mot de passe");
 
-        final JTextField pseudoField;
-        final JTextField mdpField;
-
-        pseudoField = new JTextField();
-        pseudoField.setSize(longueur, largeur);
-        pseudoField.setLocation(250, 200);
-        mdpField = new JPasswordField();
-        mdpField.setSize(longueur, largeur);
-        mdpField.setLocation(250, 250);
-        JButton login = new JButton("S'identifier");
-        login.setLocation(250, 300);
-        login.setSize(longueur, largeur);
-
+        login.setForeground(new java.awt.Color(255, 0, 255));
+        login.setText("S'identifier");
+        login.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(246, 43, 233), 1, true));
         login.addActionListener(new ActionListener() {
 
             @Override
@@ -98,10 +84,56 @@ public class VueJetable {
                 TraiterIdentificationReponse reponse = laSession.traiterIdentification(pseudoField.getText(), mdpField.getText());
                 frame.setVisible(false);
                 if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL_PERSO) {
-                    afficherEcranAccueilPerso(reponse.leClient, reponse.leProduit);
+                    //afficherEcranAccueilPerso(reponse.leClient, reponse.leProduit);
+                    EcranAccueil ecranAccueil = new EcranAccueil(reponse.leClient, reponse.leProduit);
+                    ecranAccueil.setVisible(true);
                 }
             }
         });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frame.getContentPane());
+        frame.getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title)
+                .addGap(200, 200, 200))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(mdpLabel)
+                                .addGap(223, 223, 223))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(pseudoLabel)
+                                .addComponent(pseudoField, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(137, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(title)
+                .addGap(33, 33, 33)
+                .addComponent(pseudoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pseudoField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mdpLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mdpField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+
 
         frame.add(title);
         frame.add(pseudoLabel);
@@ -119,7 +151,7 @@ public class VueJetable {
         frame.setSize(650, 500);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel accueilPanel = new JPanel();
         accueilPanel.setBackground(Color.WHITE);
         frame.setContentPane(accueilPanel);
