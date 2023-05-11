@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import controleur.*;
+import util.EnumTypeEcran;
 
 public class VueJetable {
 
@@ -28,8 +29,8 @@ public class VueJetable {
 
     public static void main(String[] args) {
         session = new Session();
-        String reponse = session.traiterConnexion();
-        if (reponse == "ECRAN_ACCUEIL") {
+        TraiterConnexionReponse reponse = session.traiterConnexion();
+        if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL.name()) {
             afficherEcranAccueil();
         }
 

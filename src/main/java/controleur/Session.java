@@ -2,8 +2,7 @@ package controleur;
 
 public class Session {
 
-    public String traiterConnexion(){
-        String reponse = "ECRAN_ACCUEIL";
-        return reponse;
+    public TraiterConnexionReponse traiterConnexion(){
+        return new TraiterConnexionReponse("ECRAN_ACCUEIL");
     }
 }
