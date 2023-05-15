@@ -5,6 +5,7 @@
 package vue;
 
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class EcranPanier extends javax.swing.JFrame {
@@ -14,11 +15,29 @@ public class EcranPanier extends javax.swing.JFrame {
      */
     public EcranPanier() {
         initComponents();
+        
+        
+    }
+    
+    public EcranPanier(Commande laCommande){
+        initComponents();
         this.setTitle("French Chic - Panier");
         this.setSize(650, 500);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.table.getTableHeader().setForeground(Color.MAGENTA);
+        
+        LigneCommande ligneC = laCommande.getLesLignesCommande().get(0);
+        NumberFormat nf = NumberFormat.getInstance(Locale.FRENCH);
+        nf.setMinimumFractionDigits(2);
+        String prixHTLg = nf.format(ligneC.getProduit().getPrix());
+        String montantLg = nf.format(ligneC.getMontant());
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.addRow(new Object[]{ligneC.getProduit().getNom(), prixHTLg, new Integer(ligneC.getQuantite()).toString(), montantLg});
+        String total = nf.format(laCommande.getMontant());
+        String montantTxt = String.valueOf(total) + " Euros";
+        montantField.setText(montantTxt);
     }
 
     /**
@@ -81,11 +100,7 @@ public class EcranPanier extends javax.swing.JFrame {
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Libellé", "Prix", "Quantité", "Montant", "Stock"
