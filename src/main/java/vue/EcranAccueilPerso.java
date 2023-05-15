@@ -7,20 +7,21 @@ package vue;
 import metier.Client;
 import metier.Produit;
 
-/**
- *
- * @author Rotsy
- */
-public class EcranAccueil extends javax.swing.JFrame {
+public class EcranAccueilPerso extends javax.swing.JFrame {
 
     /**
      * Creates new form EcranAccueil
      */
-    public EcranAccueil() {
+    public EcranAccueilPerso() {
         initComponents();
     }
-    public EcranAccueil(final Client client, final Produit produit) {
+    public EcranAccueilPerso(final Client client, final Produit produit) {
         initComponents();
+        this.setTitle("French Chic - Produit du jour");
+        this.setSize(650, 500);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
         bonjourTexte.setText("Bonjour "+client.getPrenom()+" "+client.getNom()+" !");
         produitDuJourTexte.setText("Le produit du jour est un \""+ produit.getNom() + "\" au prix de " + produit.getPrix() + " Euros");
         nomProduit.setText(produit.getNom());
@@ -54,6 +55,7 @@ public class EcranAccueil extends javax.swing.JFrame {
         panierButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(242, 241, 241));
 
         jPanel1.setBackground(new java.awt.Color(242, 0, 243));
 
@@ -116,7 +118,7 @@ public class EcranAccueil extends javax.swing.JFrame {
                         .addComponent(quantiteField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(bonjourTexte)
                     .addComponent(ajouterProduit))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +141,7 @@ public class EcranAccueil extends javax.swing.JFrame {
                     .addComponent(quantiteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ajouterProduit)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         stockLabel.getAccessibleContext().setAccessibleName("Stock");
@@ -158,14 +160,14 @@ public class EcranAccueil extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(accueilPersoButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cataogueButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panierButton))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(panierButton)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +180,7 @@ public class EcranAccueil extends javax.swing.JFrame {
                     .addComponent(panierButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -201,20 +203,20 @@ public class EcranAccueil extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EcranAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranAccueilPerso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EcranAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranAccueilPerso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EcranAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranAccueilPerso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EcranAccueil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranAccueilPerso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EcranAccueil().setVisible(true);
+                new EcranAccueilPerso().setVisible(true);
             }
         });
     }

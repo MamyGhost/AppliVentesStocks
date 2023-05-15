@@ -54,9 +54,9 @@ public class Client {
     
     public static Client[] initializeClients(){
         Client[] clients = new Client[3];
-        clients[0]=new Client("Dupond","Marie","Dupont","dupont01");
-        clients[1]=new Client("Durant","Jean","Durant","durant02");
-        clients[2]=new Client("Dupuis","Charles","Dupuis","dupuis03");
+        clients[0]=new Client("Dupond","Marie","Marie01","dupond01*");
+        clients[1]=new Client("Durant","Jean","Jean02","durant02*");
+        clients[2]=new Client("Dupuis","Charles","Charles03","dupuis03*");
         return clients;
     }
     

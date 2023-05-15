@@ -84,9 +84,8 @@ public class VueJetable {
                 TraiterIdentificationReponse reponse = laSession.traiterIdentification(pseudoField.getText(), mdpField.getText());
                 frame.setVisible(false);
                 if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL_PERSO) {
-                    //afficherEcranAccueilPerso(reponse.leClient, reponse.leProduit);
-                    EcranAccueil ecranAccueil = new EcranAccueil(reponse.leClient, reponse.leProduit);
-                    ecranAccueil.setVisible(true);
+                    afficherEcranAccueilPerso(reponse.leClient, reponse.leProduit);
+                    
                 }
             }
         });
@@ -110,7 +109,7 @@ public class VueJetable {
                             .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(mdpLabel)
-                                .addGap(223, 223, 223))
+                                .addGap(219, 219, 219))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(pseudoLabel)
                                 .addComponent(pseudoField, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -146,76 +145,8 @@ public class VueJetable {
     }
 
     private static void afficherEcranAccueilPerso(final Client client, final Produit produit) {
-        frame = new JFrame();
-        frame.setTitle("French Chic - Produit du jour");
-        frame.setSize(650, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JPanel accueilPanel = new JPanel();
-        accueilPanel.setBackground(Color.WHITE);
-        frame.setContentPane(accueilPanel);
-        frame.setLayout(null);
-
-        JLabel title = new JLabel("French Chic");
-        title.setLocation(150, 50);
-        title.setSize(1000, 100);
-        Font f = new Font("", Font.PLAIN, 70);
-        title.setFont(f);
-        title.setForeground(Color.MAGENTA);
-
-        JLabel bonjourTexte = null;
-        JLabel produitDuJourTexte = null;
-        JLabel quantiteLabel = null;
-
-        String bonjourTxt = "Bonjour " + client.getPrenom() + " " + client.getNom();
-        bonjourTexte = new JLabel(bonjourTxt);
-        bonjourTexte.setSize(250, 20);
-        bonjourTexte.setLocation(150, 200);
-
-        String produitTxt = "Le produit du jour est le \"" + produit.getNom() + "\" au prix de " + produit.getPrix() + " Euros";
-        produitDuJourTexte = new JLabel(produitTxt);
-        produitDuJourTexte.setSize(500, 20);
-        produitDuJourTexte.setLocation(150, 250);
-
-        quantiteLabel = new JLabel("Quantite");
-        quantiteLabel.setSize(120, 20);
-        quantiteLabel.setLocation(250, 325);
-
-        int longueur = 200;
-        int largeur = 30;
-
-        final JTextField quantiteField;
-
-        quantiteField = new JTextField();
-        quantiteField.setSize(longueur, largeur);
-        quantiteField.setLocation(320, 320);
-        quantiteField.setSize(50, largeur);
-
-        JButton ajouterProduit = new JButton("Ajouter le produit du jour au panier");
-        ajouterProduit.setLocation(250, 370);
-        ajouterProduit.setSize(longueur, largeur);
-
-        /*ajouterProduit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                // TODO Auto-generated method stub
-                Integer intg = new Integer(quantiteField.getText());
-                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutPanier(produit, intg);
-                frame.setVisible(false);
-                if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
-                    afficherEcranPanier(reponse.laCommande);
-                }
-            }
-        });*/
-
-        frame.add(title);
-        frame.add(bonjourTexte);
-        frame.add(produitDuJourTexte);
-        frame.add(quantiteField);
-        frame.add(quantiteLabel);
-        frame.add(ajouterProduit);
-        frame.setVisible(true);
+        EcranAccueilPerso ecranAccueil = new EcranAccueilPerso(client, produit);
+        ecranAccueil.setVisible(true);
     }
 
     
