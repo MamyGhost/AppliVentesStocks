@@ -33,7 +33,7 @@ public class Commande {
     }
 
 
-    void ajouterProduit(Produit produit,int quantite){
+    public void ajouterProduit(Produit produit,int quantite){
 
     }
 

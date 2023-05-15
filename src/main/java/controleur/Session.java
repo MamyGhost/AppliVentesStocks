@@ -1,6 +1,7 @@
 package controleur;
 
 import metier.Client;
+import metier.Commande;
 import metier.Produit;
 
 public class Session {
@@ -18,6 +19,15 @@ public class Session {
         retour.typeEcran = EnumTypeEcran.ECRAN_ACCUEIL_PERSO;
         retour.leClient = leclient;
         retour.leProduit = leProduit;
+        return retour;
+    }
+
+    public TraiterAjoutPanierResponse traiterAjoutPanier(Produit produit, Integer qte){
+        Commande laCommande = new Commande();
+        laCommande.ajouterProduit(produit,qte);
+        TraiterAjoutPanierResponse retour = new TraiterAjoutPanierResponse();
+        retour.typeEcran = EnumTypeEcran.ECRAN_PANIER;
+        retour.laCommade = laCommande;
         return retour;
     }
 }
