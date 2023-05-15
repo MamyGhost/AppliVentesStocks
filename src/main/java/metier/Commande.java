@@ -2,11 +2,14 @@ package metier;
 
 import controleur.EnumStatutCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Commande {
     float commande;
     EnumStatutCode status;
 
-    Commande[] lesCommandes;
+    List<LigneCommande> lesCommandes;
 
     public float getCommande() {
         return commande;
@@ -24,20 +27,26 @@ public class Commande {
         this.status = status;
     }
 
-    public Commande[] getLesCommandes() {
+    public List<LigneCommande> getLesCommandes() {
         return lesCommandes;
     }
 
-    public void setLesCommandes(Commande[] lesCommandes) {
+    public void setLesCommandes(List<LigneCommande> lesCommandes) {
         this.lesCommandes = lesCommandes;
     }
 
 
     void ajouterProduit(Produit produit,int quantite){
+        LigneCommande ligneCommande=new LigneCommande(quantite,(produit.prix*quantite),produit);
+        lesCommandes.add(ligneCommande);
 
     }
 
-    Commande creerPanier(){
-        throw new java.lang.UnsupportedOperationException("Not supported yet.");
+   public static Commande creerPanier(){
+        return new Commande();
+    }
+
+    public Commande() {
+        List<LigneCommande> list=new ArrayList<LigneCommande>();
     }
 }
