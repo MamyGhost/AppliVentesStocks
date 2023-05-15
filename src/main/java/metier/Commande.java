@@ -1,14 +1,16 @@
 package metier;
 
-import controleur.EnumStatutCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
+class EnumStatutCode {
+    
+}
+
 public class Commande {
     float montant;
     EnumStatutCode status;
-
     List<LigneCommande> lesCommandes;
 
     public float getMontant() {
@@ -27,11 +29,11 @@ public class Commande {
         this.status = status;
     }
 
-    public List<LigneCommande> getLesCommandes() {
+    public List<LigneCommande> getLesLignesCommande() {
         return lesCommandes;
     }
 
-    public void setLesCommandes(List<LigneCommande> lesCommandes) {
+    public void setLesLignesCommande(List<LigneCommande> lesCommandes) {
         this.lesCommandes = lesCommandes;
     }
 
@@ -39,15 +41,25 @@ public class Commande {
     public void ajouterProduit(Produit produit,int quantite){
         LigneCommande ligneCommande=new LigneCommande(quantite,(produit.prix*quantite),produit);
         lesCommandes.add(ligneCommande);
+        produit.setQuantiteEnStock(produit.getQuantiteEnStock()-quantite);
         this.montant = this.montant + (produit.prix*quantite);
 
     }
-
+/*
    public static Commande creerPanier(){
         return new Commande();
-    }
+    }*/
 
     public Commande() {
-        lesCommandes=new ArrayList<LigneCommande>();
+        this.lesCommandes=new ArrayList<LigneCommande>();
+        this.montant = 0;
+    }
+    
+    public static List<Commande> initializeCommandes(){
+        List<Commande> init =new ArrayList<Commande>();
+        Commande laCommande = new Commande();
+        laCommande.ajouterProduit(Produit.initializeProduits()[1],2);
+        init.add(laCommande);
+        return init;
     }
 }

@@ -5,11 +5,10 @@
 package metier;
 
 public class Client {
-
-
     String nom;
     String prenom;
     String pseudo;
+    String motDePasse;
 
     public String getPseudo() {
         return pseudo;
@@ -26,7 +25,7 @@ public class Client {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
-    String motDePasse;
+    
     
     public Client(String nom, String prenom, String pseudo, String motDePasse) {
         this.nom = nom;
@@ -55,21 +54,20 @@ public class Client {
     
     public static Client[] initializeClients(){
         Client[] clients = new Client[3];
-        clients[0]=new Client("Dupond","Marie","Dupont","dupont01");
-        clients[1]=new Client("Durant","Jean","Durant","durant02");
-        clients[2]=new Client("Dupuis","Charles","Dupuis","dupuis03");
+        clients[0]=new Client("Dupond","Marie","Marie01","dupond01*");
+        clients[1]=new Client("Durant","Jean","Jean02","durant02*");
+        clients[2]=new Client("Dupuis","Charles","Charles03","dupuis03*");
         return clients;
     }
     
-    public Client rechercherClientParPseudo(String pseudo, String motDePasse){
+    public static Client rechercherClientParPseudo(String pseudo, String motDePasse){
         Client[] clients = Client.initializeClients();
-        for(int i=0; i<clients.length; i++){
-            if (clients[i].getPseudo().compareTo(pseudo)== 0
-                    && clients[i].getMotDePasse().compareTo(motDePasse)==0){
-                return clients[i];
+        for (Client client : clients) {
+            if (client.pseudo.compareTo(pseudo) == 0 
+                    && client.motDePasse.compareTo(motDePasse) == 0) {
+                return client;
             }
         }
         return null;
     }
-    
 }

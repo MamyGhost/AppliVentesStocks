@@ -13,8 +13,8 @@ public class Session {
     }
     
     public TraiterIdentificationReponse traiterIdentification(String pseudo, String mdp){
-        Client leclient = new Client().rechercherClientParPseudo(pseudo, mdp);
-        Produit leProduit = new Produit().rechercherProduitDuJour();
+        Client leclient = Client.rechercherClientParPseudo(pseudo, mdp);
+        Produit leProduit = Produit.rechercherProduitDuJour();
         TraiterIdentificationReponse retour = new TraiterIdentificationReponse();
         retour.typeEcran = EnumTypeEcran.ECRAN_ACCUEIL_PERSO;
         retour.leClient = leclient;
