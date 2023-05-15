@@ -36,4 +36,5 @@ public class LigneCommande {
         this.montant = montant;
         this.produit = produit;
     }
+    
 }

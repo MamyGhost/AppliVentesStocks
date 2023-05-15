@@ -11,6 +11,7 @@ public class Produit {
     float prix;
     boolean estDuJour = false ;
     int quantiteEnStock;
+    static Produit[] lesProduits;
 
 
     public Produit() {
@@ -40,23 +41,25 @@ public class Produit {
         this.quantiteEnStock = quantiteEnStock;
     }
     
-    public static Produit[] initializeProduits(){
-        Produit[] produits = new Produit[3];
-        produits[0] = new Produit("01","Pantalon cargo",50,34);
-        produits[0].estDuJour = true;
-        produits[1] = new Produit("02","Sac Lvt OpéraSM",40,10);
-        produits[2] = new Produit("03","Cartable Easpak Zippl'R Camo",30,20);
-        return produits;
+    public static void initializeProduits(){
+        lesProduits = new Produit[3];
+        lesProduits[0] = new Produit("01","Pantalon cargo",50,34);
+        lesProduits[0].estDuJour = true;
+        lesProduits[1] = new Produit("02","Sac Lvt OpéraSM",40,10);
+        lesProduits[2] = new Produit("03","Cartable Easpak Zippl'R Camo",30,20);
     }
     
     public static Produit rechercherProduitDuJour(){
-        Produit[] produits = Produit.initializeProduits();
-        for (Produit produit : produits) {
+        for (Produit produit : lesProduits) {
             if (produit.estDuJour) {
                 return produit;
             }
         }
         return null;
+    }
+    
+    public void retirerDuStock(int quantite){
+        this.setQuantiteEnStock(this.getQuantiteEnStock()-quantite);
     }
     
     

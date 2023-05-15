@@ -31,6 +31,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
+        description.setText("<html>Tissu de qualité supérieure,<br>il est confortable à porter<br>et vous donne un look d'enfer</html>");
         bonjourTexte.setText("Bonjour "+client.getPrenom()+" "+client.getNom()+" !");
         produitDuJourTexte.setText("Le produit du jour est un \""+ produit.getNom() + "\" au prix de " + produit.getPrix() + " Euros");
         nomProduit.setText(produit.getNom());
@@ -113,7 +114,6 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         nomProduit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         nomProduit.setText("Pantalon cargo");
 
-        description.setText("Tissu de qualité supérieure, il est confortable à porter et vous donne un look d'enfer");
         description.setToolTipText("");
         description.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         description.setVerifyInputWhenFocusTarget(false);
@@ -135,14 +135,14 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
                     .addComponent(prixLabel)
                     .addComponent(produitDuJourTexte)
                     .addComponent(nomProduit)
-                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(quantiteLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(quantiteField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(bonjourTexte)
-                    .addComponent(ajouterProduit))
-                .addContainerGap(178, Short.MAX_VALUE))
+                    .addComponent(ajouterProduit)
+                    .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,8 +154,8 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(nomProduit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(stockLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(prixLabel)
@@ -165,7 +165,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
                     .addComponent(quantiteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(ajouterProduit)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         stockLabel.getAccessibleContext().setAccessibleName("Stock");
@@ -204,7 +204,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
                     .addComponent(panierButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

@@ -23,7 +23,7 @@ public class Session {
     }
 
     public TraiterAjoutPanierResponse traiterAjoutPanier(Produit produit, Integer qte){
-        Commande laCommande = new Commande();
+        Commande laCommande = new Commande().creerPanier();
         laCommande.ajouterProduit(produit,qte);
         TraiterAjoutPanierResponse retour = new TraiterAjoutPanierResponse();
         retour.typeEcran = EnumTypeEcran.ECRAN_PANIER;

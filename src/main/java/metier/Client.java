@@ -9,6 +9,7 @@ public class Client {
     String prenom;
     String pseudo;
     String motDePasse;
+    static Client[] lesClients;
 
     public String getPseudo() {
         return pseudo;
@@ -52,17 +53,15 @@ public class Client {
         this.prenom = prenom;
     }
     
-    public static Client[] initializeClients(){
-        Client[] clients = new Client[3];
-        clients[0]=new Client("Dupond","Marie","Marie01","dupond01*");
-        clients[1]=new Client("Durant","Jean","Jean02","durant02*");
-        clients[2]=new Client("Dupuis","Charles","Charles03","dupuis03*");
-        return clients;
+    public static void initializeClients(){
+        lesClients = new Client[3];
+        lesClients[0]=new Client("Dupond","Marie","Marie01","dupond01*");
+        lesClients[1]=new Client("Durant","Jean","Jean02","durant02*");
+        lesClients[2]=new Client("Dupuis","Charles","Charles03","dupuis03*");
     }
     
     public static Client rechercherClientParPseudo(String pseudo, String motDePasse){
-        Client[] clients = Client.initializeClients();
-        for (Client client : clients) {
+        for (Client client : lesClients) {
             if (client.pseudo.compareTo(pseudo) == 0 
                     && client.motDePasse.compareTo(motDePasse) == 0) {
                 return client;

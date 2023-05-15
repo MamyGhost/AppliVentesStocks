@@ -2,17 +2,17 @@ package metier;
 
 
 import java.util.ArrayList;
-import java.util.List;
-
-class EnumStatutCode {
-    
-}
 
 public class Commande {
     float montant;
-    EnumStatutCode status;
-    List<LigneCommande> lesCommandes;
+    EnumStatutCode statut;
+    ArrayList<LigneCommande> lesLignesCommande;
+    static ArrayList<Commande> lesCommandes;
 
+    public Commande() {
+        this.lesLignesCommande=new ArrayList<>();
+        this.montant = 0;
+    }
     public float getMontant() {
         return montant;
     }
@@ -21,45 +21,35 @@ public class Commande {
         this.montant = commande;
     }
 
-    public EnumStatutCode getStatus() {
-        return status;
+    public EnumStatutCode getStatut() {
+        return statut;
     }
 
-    public void setStatus(EnumStatutCode status) {
-        this.status = status;
+    public void setStatut(EnumStatutCode statut) {
+        this.statut = statut;
     }
 
-    public List<LigneCommande> getLesLignesCommande() {
-        return lesCommandes;
+    public ArrayList<LigneCommande> getLesLignesCommande() {
+        return lesLignesCommande;
     }
-
-    public void setLesLignesCommande(List<LigneCommande> lesCommandes) {
-        this.lesCommandes = lesCommandes;
-    }
-
 
     public void ajouterProduit(Produit produit,int quantite){
         LigneCommande ligneCommande=new LigneCommande(quantite,(produit.prix*quantite),produit);
-        lesCommandes.add(ligneCommande);
-        produit.setQuantiteEnStock(produit.getQuantiteEnStock()-quantite);
+        this.lesLignesCommande.add(ligneCommande);
+        produit.retirerDuStock(quantite);
         this.montant = this.montant + (produit.prix*quantite);
-
     }
-/*
-   public static Commande creerPanier(){
-        return new Commande();
-    }*/
 
-    public Commande() {
-        this.lesCommandes=new ArrayList<LigneCommande>();
-        this.montant = 0;
+    public Commande creerPanier(){
+        Commande panier =  new Commande();
+        lesCommandes.add(panier);
+        return panier;
+    }
+
+    
+    public static void initializeCommandes(){
+        lesCommandes=new ArrayList<>();
     }
     
-    public static List<Commande> initializeCommandes(){
-        List<Commande> init =new ArrayList<Commande>();
-        Commande laCommande = new Commande();
-        laCommande.ajouterProduit(Produit.initializeProduits()[1],2);
-        init.add(laCommande);
-        return init;
-    }
+    
 }
