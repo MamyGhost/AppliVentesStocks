@@ -27,7 +27,7 @@ public class Session {
         laCommande.ajouterProduit(produit,qte);
         TraiterAjoutPanierResponse retour = new TraiterAjoutPanierResponse();
         retour.typeEcran = EnumTypeEcran.ECRAN_PANIER;
-        retour.laCommade = laCommande;
+        retour.laCommande = laCommande;
         return retour;
     }
 }

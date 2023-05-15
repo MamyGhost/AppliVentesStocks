@@ -164,18 +164,18 @@ public class VueJetable {
         ajouterProduit.setLocation(250, 370);
         ajouterProduit.setSize(longueur, largeur);
 
-        /*ajouterProduit.addActionListener(new ActionListener() {
+        ajouterProduit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
                 Integer intg = new Integer(quantiteField.getText());
-                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutPanier(produit, intg);
+                TraiterAjoutPanierResponse reponse = laSession.traiterAjoutPanier(produit, intg);
                 frame.setVisible(false);
                 if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
                     afficherEcranPanier(reponse.laCommande);
                 }
             }
-        });*/
+        });
 
         frame.add(title);
         frame.add(bonjourTexte);
@@ -186,8 +186,79 @@ public class VueJetable {
         frame.setVisible(true);
     }
 
-    
-    
+    private static void afficherEcranPanier(Commande laCommande) {
+        frame = new JFrame();
+        frame.setTitle("French Chic - Panier");
+        frame.setSize(650, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        JPanel accueilPanel = new JPanel();
+        accueilPanel.setBackground(Color.WHITE);
+        frame.setContentPane(accueilPanel);
+        frame.setLayout(null);
+
+        JLabel title = new JLabel("Votre Panier");
+        title.setLocation(150, 50);
+        title.setSize(1000, 100);
+        Font f = new Font("", Font.PLAIN, 70);
+        title.setFont(f);
+        title.setForeground(Color.MAGENTA);
+
+        LigneCommande ligneC = laCommande.getLesCommandes().get(0);
+        NumberFormat nf = NumberFormat.getInstance(Locale.FRENCH);
+        nf.setMinimumFractionDigits(2);
+
+        String prixHTLg = nf.format(ligneC.getProduit().getPrix());
+        String montantLg = nf.format(ligneC.getMontant());
+
+        String[] entetes = {"Libelle", "Prix HT", "Quantite", "Montant"};
+
+        Object[][] donnees = {
+                {ligneC.getProduit().getNom(), prixHTLg, new Integer(ligneC.getQuantite()).toString(), montantLg},};
+
+        JTable table = new JTable(donnees, entetes);
+        table.setSize(400, 100);
+        table.setLocation(125, 200);
+        JPanel paneTab = new JPanel();
+        paneTab.setLocation(125, 200);
+        paneTab.setSize(400, 200);
+        paneTab.setBackground(Color.WHITE);
+        paneTab.add(table.getTableHeader(), BorderLayout.NORTH);
+        paneTab.add(table, BorderLayout.CENTER);
+
+        JLabel montantLabel = null;
+
+        montantLabel = new JLabel("Montant panier");
+        montantLabel.setSize(120, 20);
+        montantLabel.setLocation(250, 423);
+
+        int longueur = 200;
+        int largeur = 30;
+
+        final JTextField montantField;
+
+        montantField = new JTextField();
+        montantField.setSize(longueur, largeur);
+        montantField.setLocation(350, 420);
+        montantField.setSize(100, largeur);
+
+        String total = nf.format(laCommande.getMontant());
+
+        String montantTxt = String.valueOf(total) + " Euros";
+        montantField.setText(montantTxt);
+        montantField.setEditable(false);
+
+        frame.add(title);
+        frame.add(montantField);
+        frame.add(montantLabel);
+        frame.add(paneTab);
+        frame.setVisible(true);
+    }
+
+
+
+
     private static void initialize(){
         Client.initializeClients();
         Produit.initializeProduits();

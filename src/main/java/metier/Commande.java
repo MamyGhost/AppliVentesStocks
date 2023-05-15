@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Commande {
-    float commande;
+    float montant;
     EnumStatutCode status;
 
     List<LigneCommande> lesCommandes;
 
-    public float getCommande() {
-        return commande;
+    public float getMontant() {
+        return montant;
     }
 
-    public void setCommande(float commande) {
-        this.commande = commande;
+    public void setMontant(float commande) {
+        this.montant = commande;
     }
 
     public EnumStatutCode getStatus() {
@@ -36,9 +36,10 @@ public class Commande {
     }
 
 
-    void ajouterProduit(Produit produit,int quantite){
+    public void ajouterProduit(Produit produit,int quantite){
         LigneCommande ligneCommande=new LigneCommande(quantite,(produit.prix*quantite),produit);
         lesCommandes.add(ligneCommande);
+        this.montant = this.montant + (produit.prix*quantite);
 
     }
 
@@ -47,6 +48,6 @@ public class Commande {
     }
 
     public Commande() {
-        List<LigneCommande> list=new ArrayList<LigneCommande>();
+        lesCommandes=new ArrayList<LigneCommande>();
     }
 }
