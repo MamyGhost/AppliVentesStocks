@@ -39,16 +39,19 @@ public class EcranPanier extends javax.swing.JFrame {
         this.setResizable(false);
         this.table.getTableHeader().setForeground(Color.MAGENTA);
         
-        LigneCommande ligneC = laCommande.getLesLignesCommande().get(0);
         
         NumberFormat nf = NumberFormat.getInstance(Locale.FRENCH);
-        nf.setMinimumFractionDigits(2);
-        String prixHTLg = nf.format(ligneC.getProduit().getPrix());
-        String montantLg = nf.format(ligneC.getMontant());
+        for (LigneCommande ligneC : laCommande.getLesLignesCommande()) {
+            //LigneCommande ligneC = laCommande.getLesLignesCommande().get(0);
+            nf.setMinimumFractionDigits(2);
+            String prixHTLg = nf.format(ligneC.getProduit().getPrix());
+            String montantLg = nf.format(ligneC.getMontant());
 
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{ligneC.getProduit().getNom(), prixHTLg, new Integer(ligneC.getQuantite()).toString()
-                , montantLg,ligneC.getProduit().getQuantiteStock()});
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.addRow(new Object[]{ligneC.getProduit().getNom(), prixHTLg, new Integer(ligneC.getQuantite()).toString()
+                    , montantLg,ligneC.getProduit().getQuantiteStock()});
+        }
+        
         String total = nf.format(laCommande.getMontant());
         String montantTxt = String.valueOf(total) + " Euros";
         montantField.setText(montantTxt);

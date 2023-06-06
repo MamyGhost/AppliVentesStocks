@@ -6,7 +6,6 @@ package vue;
 
 import controleur.EnumTypeEcran;
 import controleur.Session;
-import controleur.TraiterAjoutPanierReponse;
 import controleur.TraiterIdentificationReponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

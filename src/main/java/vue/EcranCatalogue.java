@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import metier.Client;
 import metier.Commande;
 import metier.Produit;
 
@@ -44,7 +43,7 @@ public class EcranCatalogue extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
                 Integer intg = new Integer(quantiteField.getText());
-                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutProduitPanier(produit, intg);
+                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutProduitPanierExistant(produit, intg);
                 if (reponse.laCommande!=null){
                     if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
                         frame.setVisible(false);
