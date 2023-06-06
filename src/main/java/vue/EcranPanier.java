@@ -39,7 +39,7 @@ public class EcranPanier extends javax.swing.JFrame {
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.addRow(new Object[]{ligneC.getProduit().getNom(), prixHTLg, new Integer(ligneC.getQuantite()).toString()
-                , montantLg,ligneC.getProduit().getQuantiteEnStock()});
+                , montantLg,ligneC.getProduit().getQuantiteStock()});
         String total = nf.format(laCommande.getMontant());
         String montantTxt = String.valueOf(total) + " Euros";
         montantField.setText(montantTxt);

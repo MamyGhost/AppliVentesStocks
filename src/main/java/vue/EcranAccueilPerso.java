@@ -6,7 +6,7 @@ package vue;
 
 import controleur.EnumTypeEcran;
 import controleur.Session;
-import controleur.TraiterAjoutPanierResponse;
+import controleur.TraiterAjoutPanierReponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -35,7 +35,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         bonjourTexte.setText("Bonjour "+client.getPrenom()+" "+client.getNom()+" !");
         produitDuJourTexte.setText("Le produit du jour est un \""+ produit.getNom() + "\" au prix de " + produit.getPrix() + " Euros");
         nomProduit.setText(produit.getNom());
-        stockLabel.setText("Stock : "+produit.getQuantiteEnStock());
+        stockLabel.setText("Stock : "+produit.getQuantiteStock());
         prixLabel.setText("Prix : "+produit.getPrix());
         
         ajouterProduit.addActionListener(new ActionListener() {
@@ -43,7 +43,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
                 Integer intg = new Integer(quantiteField.getText());
-                TraiterAjoutPanierResponse reponse = laSession.traiterAjoutPanier(produit, intg);
+                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutPanier(produit, intg);
                 if (reponse.laCommande!=null){
                     if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
                         frame.setVisible(false);
