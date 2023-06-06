@@ -6,7 +6,7 @@ package vue;
 
 import controleur.EnumTypeEcran;
 import controleur.Session;
-import controleur.TraiterAjoutPanierResponse;
+import controleur.TraiterAjoutPanierReponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -35,7 +35,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         bonjourTexte.setText("Bonjour "+client.getPrenom()+" "+client.getNom()+" !");
         produitDuJourTexte.setText("Le produit du jour est un \""+ produit.getNom() + "\" au prix de " + produit.getPrix() + " Euros");
         nomProduit.setText(produit.getNom());
-        stockLabel.setText("Stock : "+produit.getQuantiteEnStock());
+        stockLabel.setText("Stock : "+produit.getQuantiteStock());
         prixLabel.setText("Prix : "+produit.getPrix());
         
         ajouterProduit.addActionListener(new ActionListener() {
@@ -43,15 +43,16 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
                 Integer intg = new Integer(quantiteField.getText());
-                TraiterAjoutPanierResponse reponse = laSession.traiterAjoutPanier(produit, intg);
+                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutProduitPanier(produit, intg);
                 if (reponse.laCommande!=null){
                     if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
                         frame.setVisible(false);
-                        afficherEcranPanier(reponse.laCommande);
+                        afficherEcranPanier(laSession, reponse.laCommande);
                     }
                 }
             }
         });
+        
     }
 
     /**
@@ -75,9 +76,6 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         quantiteField = new javax.swing.JTextField();
         stockLabel = new javax.swing.JLabel();
         prixLabel = new javax.swing.JLabel();
-        accueilPersoButton = new javax.swing.JButton();
-        cataogueButton = new javax.swing.JButton();
-        panierButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(242, 241, 241));
@@ -170,12 +168,6 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
 
         stockLabel.getAccessibleContext().setAccessibleName("Stock");
 
-        accueilPersoButton.setText("Accueil");
-
-        cataogueButton.setText("Catalogue");
-
-        panierButton.setText("Panier");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,26 +175,14 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(accueilPersoButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cataogueButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panierButton)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(accueilPersoButton)
-                    .addComponent(cataogueButton)
-                    .addComponent(panierButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(34, 34, 34)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -245,21 +225,17 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         });
     }
     
-    private static void afficherEcranPanier(Commande laCommande) {
-        EcranPanier ecranPanier = new EcranPanier(laCommande);
+    private static void afficherEcranPanier(Session laSession, Commande laCommande) {
+        EcranPanier ecranPanier = new EcranPanier(laSession, laCommande);
         ecranPanier.setVisible(true);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton accueilPersoButton;
     private javax.swing.JButton ajouterProduit;
     private javax.swing.JLabel bonjourTexte;
-    private javax.swing.JButton cataogueButton;
     private javax.swing.JLabel description;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nomProduit;
-    private javax.swing.JButton panierButton;
     private javax.swing.JLabel prixLabel;
     private javax.swing.JLabel produitDuJourTexte;
     private javax.swing.JTextField quantiteField;

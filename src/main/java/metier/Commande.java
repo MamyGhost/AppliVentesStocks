@@ -1,55 +1,65 @@
 package metier;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Commande {
-    float montant;
-    EnumStatutCode statut;
-    ArrayList<LigneCommande> lesLignesCommande;
-    static ArrayList<Commande> lesCommandes;
+
+   
+
+    private String numero; //identifiant
+    private List<LigneCommande> lesLignesCommande;
+    private Client client;
+    
+    private static List<Commande> lesCommandes;
 
     public Commande() {
-        this.lesLignesCommande=new ArrayList<>();
-        this.montant = 0;
+        this.lesLignesCommande = new ArrayList<LigneCommande>();
+        lesCommandes.add(this);
     }
+
+    public void ajouterProduit(Produit leProduit, int quantiteCommandee) {
+        // tester qu'il n'existe pas déjà une ligne de commande avec ce produit
+        if (this.lesLignesCommande.contains(leProduit)==false){
+            this.lesLignesCommande.add(new LigneCommande(leProduit, quantiteCommandee));
+            leProduit.retirerDuStock(quantiteCommandee);
+        }
+        
+    }
+
     public float getMontant() {
+        float montant = 0;
+        for (LigneCommande lc : this.lesLignesCommande) {
+            montant += lc.getMontant();
+        }
         return montant;
     }
 
-    public void setMontant(float commande) {
-        this.montant = commande;
+    public Client getClient() {
+        return client;
     }
 
-    public EnumStatutCode getStatut() {
-        return statut;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public void setStatut(EnumStatutCode statut) {
-        this.statut = statut;
-    }
-
-    public ArrayList<LigneCommande> getLesLignesCommande() {
+    public List<LigneCommande> getLesLignesCommande() {
         return lesLignesCommande;
     }
-
-    public void ajouterProduit(Produit produit,int quantite){
-        LigneCommande ligneCommande=new LigneCommande(quantite,(produit.prix*quantite),produit);
-        this.lesLignesCommande.add(ligneCommande);
-        produit.retirerDuStock(quantite);
-        this.montant = this.montant + (produit.prix*quantite);
-    }
-
-    public Commande creerPanier(){
-        Commande panier =  new Commande();
-        lesCommandes.add(panier);
-        return panier;
-    }
-
     
-    public static void initializeCommandes(){
-        lesCommandes=new ArrayList<>();
+    public static void initializeCommandes() {
+        lesCommandes = new ArrayList<Commande>();
     }
     
-    
+    public static Commande recupererPanier() {
+        Commande laCommande = lesCommandes.get(0);
+        return laCommande;
+    }
+
+    public void ajouterProduitPanier(Produit leProduit, int quantite, Commande laCommande) {
+        List<LigneCommande> lignesCommande = laCommande.getLesLignesCommande();
+        lignesCommande.add(new LigneCommande(leProduit, quantite));
+        leProduit.retirerDuStock(quantite);
+    }
+
 }

@@ -1,33 +1,43 @@
 package controleur;
-
-import metier.Client;
-import metier.Commande;
-import metier.Produit;
+import metier.*;
 
 public class Session {
+    private EnumTypeEcran typeEcran;
+    private Client leClientIdentifie;
+    private Commande laCommande;
 
-    public TraiterConnexionReponse traiterConnexion(){
-        TraiterConnexionReponse retour = new TraiterConnexionReponse();
-        retour.typeEcran = EnumTypeEcran.ECRAN_ACCUEIL;
-        return retour;
+    public TraiterConnexionReponse traiterConnexion() {
+        return new TraiterConnexionReponse(EnumTypeEcran.ECRAN_ACCUEIL);
+    }
+
+    public TraiterIdentificationReponse traiterIdentification(String ps, String mdp) {
+        Client leClient = Client.rechercherClientParPseudo(ps, mdp);
+        Produit leProduit = Produit.rechercherProduitDuJour();
+        TraiterIdentificationReponse reponse = new TraiterIdentificationReponse(EnumTypeEcran.ECRAN_ACCUEIL_PERSO, leClient, leProduit);
+
+        return reponse;
+
+    }
+
+    public TraiterAjoutPanierReponse traiterAjoutProduitPanier(Produit leProduit, int quantite) {
+        Commande laCommande = new Commande();
+        laCommande.ajouterProduit(leProduit, quantite);
+        TraiterAjoutPanierReponse reponse = new TraiterAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
+
+        return reponse;
     }
     
-    public TraiterIdentificationReponse traiterIdentification(String pseudo, String mdp){
-        Client leclient = Client.rechercherClientParPseudo(pseudo, mdp);
-        Produit leProduit = Produit.rechercherProduitDuJour();
-        TraiterIdentificationReponse retour = new TraiterIdentificationReponse();
-        retour.typeEcran = EnumTypeEcran.ECRAN_ACCUEIL_PERSO;
-        retour.leClient = leclient;
-        retour.leProduit = leProduit;
-        return retour;
+    public TraiterAffichageCatalogueReponse traiterAffichageCatalogue(){
+        Produit leProduit = Produit.afficherCatalogue();
+        TraiterAffichageCatalogueReponse reponse = new TraiterAffichageCatalogueReponse(EnumTypeEcran.ECRAN_CATALOGUE, leProduit);
+        return reponse;
+    }
+    
+    public TraiterAjoutPanierReponse traiterAjoutProduitPanierExistant (Produit leProduit, int quantite){
+        Commande laCommande = Commande.recupererPanier();
+        laCommande.ajouterProduitPanier(leProduit, quantite, laCommande);
+        TraiterAjoutPanierReponse reponse = new TraiterAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
+        return reponse;
     }
 
-    public TraiterAjoutPanierResponse traiterAjoutPanier(Produit produit, Integer qte){
-        Commande laCommande = new Commande().creerPanier();
-        laCommande.ajouterProduit(produit,qte);
-        TraiterAjoutPanierResponse retour = new TraiterAjoutPanierResponse();
-        retour.typeEcran = EnumTypeEcran.ECRAN_PANIER;
-        retour.laCommande = laCommande;
-        return retour;
-    }
 }

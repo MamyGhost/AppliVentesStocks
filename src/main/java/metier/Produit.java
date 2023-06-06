@@ -1,66 +1,72 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package metier;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Produit {
 
-    String reference;
-    String nom;
-    float prix;
-    boolean estDuJour = false ;
-    int quantiteEnStock;
-    static Produit[] lesProduits;
-
-
-    public Produit() {
-    }
-
-    public Produit(String reference, String libelle, float prix, int quantiteEnStock) {
-        this.reference = reference;
-        this.nom = libelle;
-        this.prix = prix;
-        this.quantiteEnStock = quantiteEnStock;
-    }
-    public String getReference() {
-        return reference;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-    public float getPrix() {
-        return prix;
-    }
-
-    public int getQuantiteEnStock() {
-        return quantiteEnStock;
-    }
-    public void setQuantiteEnStock(int quantiteEnStock) {
-        this.quantiteEnStock = quantiteEnStock;
-    }
     
-    public static void initializeProduits(){
-        lesProduits = new Produit[3];
-        lesProduits[0] = new Produit("01","Pantalon cargo",50,34);
-        lesProduits[0].estDuJour = true;
-        lesProduits[1] = new Produit("02","Sac Lvt OpéraSM",40,10);
-        lesProduits[2] = new Produit("03","Cartable Easpak Zippl'R Camo",30,20);
-    }
-    
-    public static Produit rechercherProduitDuJour(){
-        for (Produit produit : lesProduits) {
-            if (produit.estDuJour) {
-                return produit;
-            }
+	private String nom;
+	private float prix;
+	private int quantiteStock;
+        private boolean estDuJour; 
+	
+	private static List<Produit> lesProduits;
+	
+	public Produit(String nom, float prix, int qteStock, boolean estDuJour){
+            this.nom = nom;
+            this.prix = prix;
+            this.quantiteStock = qteStock;
+            this.estDuJour = estDuJour;
+	}
+        
+        public static Produit rechercherProduitDuJour(){
+            Produit leProduit = lesProduits.get(0);
+            if (leProduit.estDuJour) return leProduit;
+            else return null;
+	}
+        
+	
+	public void retirerDuStock(int qte){
+            this.quantiteStock = this.quantiteStock-qte;
         }
-        return null;
+	
+	public String getNom() {
+            return nom;
+	}
+
+	public void setNom(String nom) {
+            this.nom = nom;
+	}
+
+	public float getPrix() {
+            return prix;
+	}
+
+	public void setPrix(float prix) {
+            this.prix = prix;
+	}
+
+	public int getQuantiteStock() {
+		return quantiteStock;
+	}
+        
+        public boolean estDujour(){
+            return this.estDuJour;
+        }
+
+    public static void initializeProduits() {
+        lesProduits = new ArrayList<Produit>();
+        Produit leProduit = new Produit("Pantalon zouk",50,10, true);
+        lesProduits.add(leProduit);
+        Produit leDeuxiemeProduit = new Produit("Sac LV Neverfull MM ",2160,4, false);
+        lesProduits.add(leDeuxiemeProduit);
+
+    }	
+    public static Produit afficherCatalogue() {
+        Produit leProduit = lesProduits.get(1);
+        if (leProduit.estDuJour==false) return leProduit;
+        else return null;
     }
-    
-    public void retirerDuStock(int quantite){
-        this.setQuantiteEnStock(this.getQuantiteEnStock()-quantite);
-    }
-    
-    
+	
 }
