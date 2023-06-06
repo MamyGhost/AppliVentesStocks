@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Produit {
+
+    
 	private String nom;
 	private float prix;
 	private int quantiteStock;
@@ -23,6 +25,7 @@ public class Produit {
             if (leProduit.estDuJour) return leProduit;
             else return null;
 	}
+        
 	
 	public void retirerDuStock(int qte){
             this.quantiteStock = this.quantiteStock-qte;
@@ -52,7 +55,7 @@ public class Produit {
             return this.estDuJour;
         }
 
- public static void initializeProduits() {
+    public static void initializeProduits() {
         lesProduits = new ArrayList<Produit>();
         Produit leProduit = new Produit("Pantalon zouk",50,10, true);
         lesProduits.add(leProduit);
@@ -60,5 +63,10 @@ public class Produit {
         lesProduits.add(leDeuxiemeProduit);
 
     }	
+    public static Produit afficherCatalogue() {
+        Produit leProduit = lesProduits.get(1);
+        if (leProduit.estDuJour==false) return leProduit;
+        else return null;
+    }
 	
 }

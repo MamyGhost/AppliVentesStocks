@@ -6,70 +6,52 @@ package vue;
 
 import controleur.EnumTypeEcran;
 import controleur.Session;
-import controleur.TraiterAffichageCatalogueReponse;
-import java.awt.Color;
+import controleur.TraiterAjoutPanierReponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
-import metier.Commande;
-import metier.LigneCommande;
+import metier.Client;
 import metier.Produit;
 
-public class EcranPanier extends javax.swing.JFrame {
+/**
+ *
+ * @author Rotsy
+ */
+public class EcranCatalogue extends javax.swing.JFrame {
 
     /**
-     * Creates new form EcranPanier
+     * Creates new form EcranCatalogue
      */
-    public EcranPanier() {
+    public EcranCatalogue() {
         initComponents();
-        
-        
     }
-    
-    public EcranPanier(final Session laSession, Commande laCommande){
+    public EcranCatalogue(final Session laSession, final Produit produit) {
         initComponents();
-        this.setTitle("French Chic - Panier");
+        this.setTitle("French Chic - Produit du catalogue");
         this.setSize(650, 500);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.table.getTableHeader().setForeground(Color.MAGENTA);
         
-        LigneCommande ligneC = laCommande.getLesLignesCommande().get(0);
+        nomProduit.setText(produit.getNom());
+        stockLabel.setText("Stock : "+produit.getQuantiteStock());
+        prixLabel.setText("Prix : "+produit.getPrix());
         
-        NumberFormat nf = NumberFormat.getInstance(Locale.FRENCH);
-        nf.setMinimumFractionDigits(2);
-        String prixHTLg = nf.format(ligneC.getProduit().getPrix());
-        String montantLg = nf.format(ligneC.getMontant());
-
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.addRow(new Object[]{ligneC.getProduit().getNom(), prixHTLg, new Integer(ligneC.getQuantite()).toString()
-                , montantLg,ligneC.getProduit().getQuantiteStock()});
-        String total = nf.format(laCommande.getMontant());
-        String montantTxt = String.valueOf(total) + " Euros";
-        montantField.setText(montantTxt);
-        
-        catalogueButton.addActionListener(new ActionListener() {
+        /*ajouterProduit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
-                TraiterAffichageCatalogueReponse reponse = laSession.traiterAffichageCatalogue();
-                if (reponse.leProduit!=null){
-                    if (reponse.typeEcran == EnumTypeEcran.ECRAN_CATALOGUE) {
+                Integer intg = new Integer(quantiteField.getText());
+                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutProduitPanier(produit, intg);
+                if (reponse.laCommande!=null){
+                    if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
                         frame.setVisible(false);
-                        afficherEcranCatalogue(laSession, reponse.leProduit);
+                        afficherEcranPanier(laSession, reponse.laCommande);
                     }
                 }
             }
-        });
-    }
-    private static void afficherEcranCatalogue(Session laSession, Produit leProduit) {
-        EcranCatalogue ecranCatalogue = new EcranCatalogue(laSession, leProduit);
-        ecranCatalogue.setVisible(true);
+        });*/
     }
 
     /**
@@ -86,11 +68,12 @@ public class EcranPanier extends javax.swing.JFrame {
         catalogueButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         panierTexte = new javax.swing.JLabel();
-        listeDesProduitsTexte = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
-        montantLabel = new javax.swing.JLabel();
-        montantField = new javax.swing.JTextField();
+        nomProduit = new javax.swing.JLabel();
+        stockLabel = new javax.swing.JLabel();
+        prixLabel = new javax.swing.JLabel();
+        quantiteLabel = new javax.swing.JLabel();
+        quantiteField = new javax.swing.JTextField();
+        ajouterProduit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,7 +90,7 @@ public class EcranPanier extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(title)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(485, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,33 +102,23 @@ public class EcranPanier extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         panierTexte.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        panierTexte.setText("Votre panier");
+        panierTexte.setText("Le catalogue produit");
 
-        listeDesProduitsTexte.setText("Liste des produits commandés");
+        nomProduit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nomProduit.setText("Deuxième produit");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        stockLabel.setText("Stock : 4");
 
-            },
-            new String [] {
-                "Libellé", "Prix", "Quantité", "Montant", "Stock"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
-            };
+        prixLabel.setText("Prix : 34");
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        quantiteLabel.setText("Quantité :");
+
+        ajouterProduit.setText("Ajouter au panier");
+        ajouterProduit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajouterProduitActionPerformed(evt);
             }
         });
-        table.setSelectionBackground(new java.awt.Color(255, 204, 204));
-        jScrollPane1.setViewportView(table);
-
-        montantLabel.setText("Montant total du panier :");
-
-        montantField.setEditable(false);
-        montantField.setText("250");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -154,17 +127,16 @@ public class EcranPanier extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(ajouterProduit)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listeDesProduitsTexte)
-                            .addComponent(panierTexte)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(montantLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(montantField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(quantiteLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quantiteField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prixLabel)
+                    .addComponent(stockLabel)
+                    .addComponent(nomProduit)
+                    .addComponent(panierTexte))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,14 +144,18 @@ public class EcranPanier extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(panierTexte, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listeDesProduitsTexte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nomProduit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(stockLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prixLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(montantLabel)
-                    .addComponent(montantField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(quantiteLabel)
+                    .addComponent(quantiteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ajouterProduit)
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,11 +164,11 @@ public class EcranPanier extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(catalogueButton)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(catalogueButton))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,13 +176,17 @@ public class EcranPanier extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(catalogueButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ajouterProduitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterProduitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ajouterProduitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,34 +205,35 @@ public class EcranPanier extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EcranPanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranCatalogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EcranPanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranCatalogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EcranPanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranCatalogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EcranPanier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EcranCatalogue.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EcranPanier().setVisible(true);
+                new EcranCatalogue().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ajouterProduit;
     private javax.swing.JButton catalogueButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel listeDesProduitsTexte;
-    private javax.swing.JTextField montantField;
-    private javax.swing.JLabel montantLabel;
+    private javax.swing.JLabel nomProduit;
     private javax.swing.JLabel panierTexte;
-    private javax.swing.JTable table;
+    private javax.swing.JLabel prixLabel;
+    private javax.swing.JTextField quantiteField;
+    private javax.swing.JLabel quantiteLabel;
+    private javax.swing.JLabel stockLabel;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

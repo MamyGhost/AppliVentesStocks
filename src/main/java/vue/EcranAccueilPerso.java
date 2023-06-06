@@ -6,6 +6,7 @@ package vue;
 
 import controleur.EnumTypeEcran;
 import controleur.Session;
+import controleur.TraiterAffichageCatalogueReponse;
 import controleur.TraiterAjoutPanierReponse;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,11 +44,24 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
                 Integer intg = new Integer(quantiteField.getText());
-                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutPanier(produit, intg);
+                TraiterAjoutPanierReponse reponse = laSession.traiterAjoutProduitPanier(produit, intg);
                 if (reponse.laCommande!=null){
                     if (reponse.typeEcran == EnumTypeEcran.ECRAN_PANIER) {
                         frame.setVisible(false);
-                        afficherEcranPanier(reponse.laCommande);
+                        afficherEcranPanier(laSession, reponse.laCommande);
+                    }
+                }
+            }
+        });
+        catalogueButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
+                TraiterAffichageCatalogueReponse reponse = laSession.traiterAffichageCatalogue();
+                if (reponse.leProduit!=null){
+                    if (reponse.typeEcran == EnumTypeEcran.ECRAN_CATALOGUE) {
+                        frame.setVisible(false);
+                        afficherEcranCatalogue(laSession, reponse.leProduit);
                     }
                 }
             }
@@ -75,7 +89,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         quantiteField = new javax.swing.JTextField();
         stockLabel = new javax.swing.JLabel();
         prixLabel = new javax.swing.JLabel();
-        cataogueButton = new javax.swing.JButton();
+        catalogueButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(242, 241, 241));
@@ -168,7 +182,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
 
         stockLabel.getAccessibleContext().setAccessibleName("Stock");
 
-        cataogueButton.setText("Catalogue");
+        catalogueButton.setText("Catalogue");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,7 +192,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cataogueButton)
+                    .addComponent(catalogueButton)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
@@ -187,7 +201,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cataogueButton)
+                .addComponent(catalogueButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -231,15 +245,19 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         });
     }
     
-    private static void afficherEcranPanier(Commande laCommande) {
-        EcranPanier ecranPanier = new EcranPanier(laCommande);
+    private static void afficherEcranPanier(Session laSession, Commande laCommande) {
+        EcranPanier ecranPanier = new EcranPanier(laSession, laCommande);
         ecranPanier.setVisible(true);
+    }
+    private static void afficherEcranCatalogue(Session laSession, Produit leProduit) {
+        EcranCatalogue ecranCatalogue = new EcranCatalogue(laSession, leProduit);
+        ecranCatalogue.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ajouterProduit;
     private javax.swing.JLabel bonjourTexte;
-    private javax.swing.JButton cataogueButton;
+    private javax.swing.JButton catalogueButton;
     private javax.swing.JLabel description;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -6,8 +6,8 @@ public class TraiterIdentificationReponse {
         public Client leClient;
         public Produit leProduit;
         public TraiterIdentificationReponse(EnumTypeEcran typeEcran, Client leClient, Produit leProduit){
-        this.typeEcran = typeEcran;
-        this.leClient = leClient; 
-        this.leProduit = leProduit;
-    }
+            this.typeEcran = typeEcran;
+            this.leClient = leClient; 
+            this.leProduit = leProduit;
+        }
 }
