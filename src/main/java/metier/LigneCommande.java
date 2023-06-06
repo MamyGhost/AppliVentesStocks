@@ -1,40 +1,27 @@
 package metier;
 
 public class LigneCommande {
+	
+	private int quantite;
+        private float montant;
+        private Produit leProduit;
+	
+	public LigneCommande(Produit leProduit,int quantite){
+		this.leProduit = leProduit;
+		this.quantite = quantite;
+                this.montant = quantite * leProduit.getPrix();
+	}
+	
+	public float getMontant(){
+		return this.montant;
+	}
+	
+	public Produit getProduit() {
+		return leProduit;
+	}
 
-    int quantite;
-    float montant;
+	public int getQuantite() {
+		return quantite;
+	}
 
-    Produit produit;
-
-    public int getQuantite() {
-        return quantite;
-    }
-
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
-    }
-
-    public float getMontant() {
-        return montant;
-    }
-
-    public void setMontant(float montant) {
-        this.montant = montant;
-    }
-
-    public Produit getProduit() {
-        return produit;
-    }
-
-    public void setProduit(Produit produit) {
-        this.produit = produit;
-    }
-
-    public LigneCommande(int quantite, float montant, Produit produit) {
-        this.quantite = quantite;
-        this.montant = montant;
-        this.produit = produit;
-    }
-    
 }

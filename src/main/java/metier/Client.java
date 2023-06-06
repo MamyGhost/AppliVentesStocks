@@ -1,18 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package metier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Client {
-    String nom;
-    String prenom;
-    String pseudo;
-    String motDePasse;
-    static Client[] lesClients;
+
+    private String numero; //identifiant
+    private String nom;
+    private String prenom;
+    private String pseudo;
+    private String motDePasse;
+
+    private static List<Client> lesClients;
+
+    public Client(String nom, String prenom, String pseudo, String mdp) {
+        this.setNom(nom);
+        this.setPrenom(prenom);
+        this.setPseudo(pseudo);
+        this.setMotDePasse(mdp);
+    }
+
+    public static Client rechercherClientParPseudo(String pseudo, String motDePasse) {
+        Client leClient = lesClients.get(0);
+        if (leClient.getPseudo().equals(pseudo) && leClient.getMotDePasse().equals(motDePasse))
+            return leClient;
+        else return leClient;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return this.prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 
     public String getPseudo() {
-        return pseudo;
+        return this.pseudo;
     }
 
     public void setPseudo(String pseudo) {
@@ -26,47 +58,11 @@ public class Client {
     public void setMotDePasse(String motDePasse) {
         this.motDePasse = motDePasse;
     }
-    
-    
-    public Client(String nom, String prenom, String pseudo, String motDePasse) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.pseudo = pseudo;
-        this.motDePasse = motDePasse;
+
+    public static void initializeClients() {
+        lesClients = new ArrayList<Client>();
+        Client leClient = new Client("Dupond", "Marie", "Marie", "Marie");
+        lesClients.add(leClient);
     }
 
-    public Client() {
-    }
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-    
-    public static void initializeClients(){
-        lesClients = new Client[3];
-        lesClients[0]=new Client("Dupond","Marie","Marie01","dupond01*");
-        lesClients[1]=new Client("Durant","Jean","Jean02","durant02*");
-        lesClients[2]=new Client("Dupuis","Charles","Charles03","dupuis03*");
-    }
-    
-    public static Client rechercherClientParPseudo(String pseudo, String motDePasse){
-        for (Client client : lesClients) {
-            if (client.pseudo.compareTo(pseudo) == 0 
-                    && client.motDePasse.compareTo(motDePasse) == 0) {
-                return client;
-            }
-        }
-        return null;
-    }
 }
