@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import metier.Client;
+import metier.Commande;
 import metier.Produit;
 
 /**
@@ -38,7 +39,7 @@ public class EcranCatalogue extends javax.swing.JFrame {
         stockLabel.setText("Stock : "+produit.getQuantiteStock());
         prixLabel.setText("Prix : "+produit.getPrix());
         
-        /*ajouterProduit.addActionListener(new ActionListener() {
+        ajouterProduit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
@@ -51,7 +52,11 @@ public class EcranCatalogue extends javax.swing.JFrame {
                     }
                 }
             }
-        });*/
+        });
+    }
+     private static void afficherEcranPanier(Session laSession, Commande laCommande) {
+        EcranPanier ecranPanier = new EcranPanier(laSession, laCommande);
+        ecranPanier.setVisible(true);
     }
 
     /**

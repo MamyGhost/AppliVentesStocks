@@ -32,5 +32,13 @@ public class Session {
         TraiterAffichageCatalogueReponse reponse = new TraiterAffichageCatalogueReponse(EnumTypeEcran.ECRAN_CATALOGUE, leProduit);
         return reponse;
     }
+    
+    public TraiterAjoutPanierReponse traiterAjoutProduitPanierExistant (Produit leProduit, int quantite){
+        Commande laCommande = Commande.recupererPanier();
+        System.out.println("********************************"+laCommande);
+        laCommande.ajouterProduitPanier(leProduit, quantite, laCommande);
+        TraiterAjoutPanierReponse reponse = new TraiterAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
+        return reponse;
+    }
 
 }

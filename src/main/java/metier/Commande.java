@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Commande {
 
+   
+
     private String numero; //identifiant
     private List<LigneCommande> lesLignesCommande;
     private Client client;
@@ -44,6 +46,19 @@ public class Commande {
     
     public static void initializeCommandes() {
         lesCommandes = new ArrayList<Commande>();
+    }
+    
+    public static Commande recupererPanier() {
+        Commande laCommande = lesCommandes.get(0);
+        return laCommande;
+    }
+
+    public void ajouterProduitPanier(Produit leProduit, int quantite, Commande laCommande) {
+        // tester qu'il n'existe pas déjà une ligne de commande avec ce produit
+        System.out.println("********************************"+laCommande.lesLignesCommande.size());
+        List<LigneCommande> lignesCommande = laCommande.getLesLignesCommande();
+        lignesCommande.add(new LigneCommande(leProduit, quantite));
+        leProduit.retirerDuStock(quantite);
     }
 
 }
