@@ -61,8 +61,12 @@ public class Client {
 
     public static void initializeClients() {
         lesClients = new ArrayList<Client>();
-        Client leClient = new Client("Dupond", "Marie", "Marie", "Marie");
+        Client leClient = new Client("Dupond", "Marie", "Marie01", "dupond01*");
         lesClients.add(leClient);
+        lesClients.add(new Client("Durant","Jean","Jean02","durant02*"));
+        lesClients.add(new Client("Dupuis","Charles","Charles03","dupuis03*"));
+
+        
     }
 
 }

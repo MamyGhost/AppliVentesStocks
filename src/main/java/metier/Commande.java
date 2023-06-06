@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Commande {
 
+   
+
     private String numero; //identifiant
     private List<LigneCommande> lesLignesCommande;
     private Client client;
@@ -18,8 +20,11 @@ public class Commande {
 
     public void ajouterProduit(Produit leProduit, int quantiteCommandee) {
         // tester qu'il n'existe pas déjà une ligne de commande avec ce produit
-        this.lesLignesCommande.add(new LigneCommande(leProduit, quantiteCommandee));
-        leProduit.retirerDuStock(quantiteCommandee);
+        if (this.lesLignesCommande.contains(leProduit)==false){
+            this.lesLignesCommande.add(new LigneCommande(leProduit, quantiteCommandee));
+            leProduit.retirerDuStock(quantiteCommandee);
+        }
+        
     }
 
     public float getMontant() {
@@ -44,6 +49,17 @@ public class Commande {
     
     public static void initializeCommandes() {
         lesCommandes = new ArrayList<Commande>();
+    }
+    
+    public static Commande recupererPanier() {
+        Commande laCommande = lesCommandes.get(0);
+        return laCommande;
+    }
+
+    public void ajouterProduitPanier(Produit leProduit, int quantite, Commande laCommande) {
+        List<LigneCommande> lignesCommande = laCommande.getLesLignesCommande();
+        lignesCommande.add(new LigneCommande(leProduit, quantite));
+        leProduit.retirerDuStock(quantite);
     }
 
 }

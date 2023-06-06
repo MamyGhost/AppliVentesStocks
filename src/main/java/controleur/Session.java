@@ -19,11 +19,24 @@ public class Session {
 
     }
 
-    public TraiterAjoutPanierReponse traiterAjoutPanier(Produit leProduit, int quantite) {
+    public TraiterAjoutPanierReponse traiterAjoutProduitPanier(Produit leProduit, int quantite) {
         Commande laCommande = new Commande();
         laCommande.ajouterProduit(leProduit, quantite);
         TraiterAjoutPanierReponse reponse = new TraiterAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
 
+        return reponse;
+    }
+    
+    public TraiterAffichageCatalogueReponse traiterAffichageCatalogue(){
+        Produit leProduit = Produit.afficherCatalogue();
+        TraiterAffichageCatalogueReponse reponse = new TraiterAffichageCatalogueReponse(EnumTypeEcran.ECRAN_CATALOGUE, leProduit);
+        return reponse;
+    }
+    
+    public TraiterAjoutPanierReponse traiterAjoutProduitPanierExistant (Produit leProduit, int quantite){
+        Commande laCommande = Commande.recupererPanier();
+        laCommande.ajouterProduitPanier(leProduit, quantite, laCommande);
+        TraiterAjoutPanierReponse reponse = new TraiterAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
         return reponse;
     }
 
