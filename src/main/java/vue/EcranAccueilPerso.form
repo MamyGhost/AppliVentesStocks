@@ -30,14 +30,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cataogueButton" min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="accueilPersoButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cataogueButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="panierButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
               <EmptySpace pref="124" max="32767" attributes="0"/>
           </Group>
@@ -48,11 +42,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="accueilPersoButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cataogueButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="panierButton" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="cataogueButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -211,19 +201,9 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="accueilPersoButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Accueil"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="cataogueButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Catalogue"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="panierButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Panier"/>
       </Properties>
     </Component>
   </SubComponents>

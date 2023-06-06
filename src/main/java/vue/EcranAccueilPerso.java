@@ -75,9 +75,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
         quantiteField = new javax.swing.JTextField();
         stockLabel = new javax.swing.JLabel();
         prixLabel = new javax.swing.JLabel();
-        accueilPersoButton = new javax.swing.JButton();
         cataogueButton = new javax.swing.JButton();
-        panierButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(242, 241, 241));
@@ -170,11 +168,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
 
         stockLabel.getAccessibleContext().setAccessibleName("Stock");
 
-        accueilPersoButton.setText("Accueil");
-
         cataogueButton.setText("Catalogue");
-
-        panierButton.setText("Panier");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,13 +178,8 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(accueilPersoButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cataogueButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panierButton)))
+                    .addComponent(cataogueButton)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -198,10 +187,7 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(accueilPersoButton)
-                    .addComponent(cataogueButton)
-                    .addComponent(panierButton))
+                .addComponent(cataogueButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -251,7 +237,6 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton accueilPersoButton;
     private javax.swing.JButton ajouterProduit;
     private javax.swing.JLabel bonjourTexte;
     private javax.swing.JButton cataogueButton;
@@ -259,7 +244,6 @@ public class EcranAccueilPerso extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel nomProduit;
-    private javax.swing.JButton panierButton;
     private javax.swing.JLabel prixLabel;
     private javax.swing.JLabel produitDuJourTexte;
     private javax.swing.JTextField quantiteField;
